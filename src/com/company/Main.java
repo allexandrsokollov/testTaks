@@ -11,8 +11,14 @@ public class Main {
         System.out.println("Enter your expression");
         expression = in.nextLine();
 
+        try {
+            Calculator calc = new Calculator(expression);
+        } catch (DataException e) {
+            e.printStackTrace();
+        }
 
         in.close();
+
     }
 
 

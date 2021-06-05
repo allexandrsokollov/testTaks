@@ -1,13 +1,14 @@
 package com.company;
 
-import java.util.HashMap;
+
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RomanNumbers {
     private final int MAX_ROMAN_VALUE = 3999;
-    private Map<Integer, String> units = new HashMap<Integer, String>();
+    private Map<Integer, String> units = new LinkedHashMap<Integer, String>();
     private final char[] romanSigns = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
-    private String[] roman;
+    private String[] roman = new String[MAX_ROMAN_VALUE + 1];
 
 
 
@@ -31,13 +32,14 @@ public class RomanNumbers {
         for(int i = 1; i <= MAX_ROMAN_VALUE; i++) {
             roman[i] = intToRoman(i);
         }
+
     }
 
 
     public int whatNumberIsIt(String romanNumber) {
         int toReturn = -1;
         for(int i = 1; i <= MAX_ROMAN_VALUE; i++) {
-            if(roman[i] == romanNumber) {
+            if(roman[i].equals(romanNumber)) {
                 toReturn =  i;
                 break;
             }
@@ -75,14 +77,15 @@ public class RomanNumbers {
     }
 
 
-    private String intToRoman(int number) {
+    public String intToRoman(int number) {
         if (number > MAX_ROMAN_VALUE || number <= 0)
             return null;
         StringBuilder result = new StringBuilder();
 
-        for(Map.Entry<Integer, String> key: units.entrySet()) {
-            while (number >= key.getKey()) {
-                number -= key.getKey();
+
+        for(Integer key: units.keySet()) {
+            while (number >= key) {
+                number -= key;
                 result.append(units.get(key));
             }
         }
